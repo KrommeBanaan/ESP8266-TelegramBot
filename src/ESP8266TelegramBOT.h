@@ -31,13 +31,48 @@
 class TelegramBOT
 {
   public:
-    TelegramBOT (String, String, String);
-  	String message[3][6];  // amount of messages read per time  (update_id, name_id, name, lastname, chat_id, text)
-  	void begin(void);
-  	void analizeMessages(void);
-  	void sendMessage(String chat_id, String text, String reply_markup);
-  	void getUpdates(String offset);
-	const char* fingerprint = "37:21:36:77:50:57:F3:C9:28:D0:F7:FA:4C:05:35:7F:60:C1:20:44";  //Telegram.org Certificate 
+    /**
+     * Constructor
+     * @param BotToken, Token provided by the BotFather
+     * @param BotName, Name of the Bot
+     * @param BotUserName, Username of the Bot
+     **/
+    TelegramBOT (const String BotToken, const String BotName, const String BotUserName);
+    
+    /**
+     * begin
+     * Initializes the message container
+     **/
+    void begin(void);
+
+    /**
+     * Analyze/decode the JSON message
+     **/
+    void analizeMessages(void);
+
+    /**
+     * Send a message
+     * @param chat_id, the chat id to send the message to
+     * @param text, the text message to send
+     * @param reply_markup, markup setting to reply with. Empty for plaintext message
+     **/
+    void sendMessage(String chat_id, String text, String reply_markup);
+	
+    /**
+     * GetUpdates from the Telegram server at a specific offset
+     * @param offset, message id + 1 to get the latest update
+     **/
+    void getUpdates(String offset);
+	
+    /**
+     * Message container
+     **/
+    String message[3][6];  // amount of messages read per time  (update_id, name_id, name, lastname, chat_id, text)
+    
+    /**
+     * Telegram's server certificate fingerprint
+     **/
+    const char* fingerprint = "37:21:36:77:50:57:F3:C9:28:D0:F7:FA:4C:05:35:7F:60:C1:20:44";  //Telegram.org Certificate 
 
   private:
     String connectToTelegram(String command);
